@@ -62,13 +62,44 @@ class Tree {
     }
     return root;
   }
+
+  deleteItem(value, root = this.root) {
+    if (root === null) return root;
+
+    if (root.data > value) {
+      root.left = this.deleteItem(value, root.left);
+    } else if (root.data < value) {
+      root.right = this.deleteItem(value, root.right);
+    } else {
+      if (root.left === null) {
+        root = root.right;
+        return root;
+      }
+      if (root.right === null) {
+        root = root.left;
+        return root;
+      }
+
+      const succ = this.getSuccessor(root);
+      root.data = succ.data;
+      root.right = this.deleteItem(succ.data, root.right);
+    }
+    return root;
+  }
+
+  getSuccessor(curr) {
+    curr = curr.right;
+    while (curr !== null && curr.left !== null) {
+      curr = curr.left;
+    }
+    return curr;
+  }
 }
 
-// const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const arr = [1, 2, 3, 4];
+const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// const arr = [1, 2, 3, 4, 5, 6, 7];
 
 const test = new Tree(arr);
-test.insert(6);
-test.insert(5);
-test.insert(7);
+test.deleteItem(8);
+
 test.prettyPrint(test.root);
