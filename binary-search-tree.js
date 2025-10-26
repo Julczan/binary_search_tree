@@ -103,6 +103,23 @@ class Tree {
 
     return root;
   }
+
+  printNode(node) {
+    console.log(node);
+  }
+
+  levelOrderForEachIter(callback, root = this.root) {
+    if (!callback) throw new Error("Callback is required");
+    if (root === null) return;
+    const queue = [];
+    queue.push(root);
+    while (queue.length > 0) {
+      root = queue.shift();
+      callback(root.data);
+      if (root.left !== null) queue.push(root.left);
+      if (root.right !== null) queue.push(root.right);
+    }
+  }
 }
 
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -110,6 +127,6 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const test = new Tree(arr);
 
-console.log(test.find(8));
+console.log(test.levelOrderForEachIter(test.printNode));
 
-// test.prettyPrint(test.root);
+test.prettyPrint(test.root);
