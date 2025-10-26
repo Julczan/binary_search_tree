@@ -94,12 +94,22 @@ class Tree {
     }
     return curr;
   }
+
+  find(value, root = this.root) {
+    if (root === null) return root;
+
+    if (value > root.data) return this.find(value, root.right);
+    if (value < root.data) return this.find(value, root.left);
+
+    return root;
+  }
 }
 
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // const arr = [1, 2, 3, 4, 5, 6, 7];
 
 const test = new Tree(arr);
-test.deleteItem(8);
 
-test.prettyPrint(test.root);
+console.log(test.find(8));
+
+// test.prettyPrint(test.root);
