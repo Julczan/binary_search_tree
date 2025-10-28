@@ -104,21 +104,57 @@ class Tree {
     return root;
   }
 
-  printNode(node) {
-    console.log(node);
+  printNode(result) {
+    console.log(result);
   }
 
   levelOrderForEachIter(callback, root = this.root) {
     if (!callback) throw new Error("Callback is required");
     if (root === null) return;
+
     const queue = [];
+    const res = [];
+
     queue.push(root);
+
     while (queue.length > 0) {
       root = queue.shift();
-      callback(root.data);
+      res.push(root.data);
       if (root.left !== null) queue.push(root.left);
       if (root.right !== null) queue.push(root.right);
     }
+
+    callback(res);
+  }
+
+  inorderForEach(callback, root = this.root) {
+    if (!callback) throw new Error("Callback is required");
+
+    if (root === null) return;
+
+    this.inorderForEach(callback, root.left);
+    callback(root.data);
+    this.inorderForEach(callback, root.right);
+  }
+
+  preOrderForEach(callback, root = this.root) {
+    if (!callback) throw new Error("Callback is required");
+
+    if (root === null) return;
+
+    callback(root.data);
+    this.preOrderForEach(callback, root.left);
+    this.preOrderForEach(callback, root.right);
+  }
+
+  postOrderForEach(callback, root = this.root) {
+    if (!callback) throw new Error("Callback is required");
+
+    if (root === null) return;
+
+    this.postOrderForEach(callback, root.left);
+    this.postOrderForEach(callback, root.right);
+    callback(root.data);
   }
 }
 
@@ -127,6 +163,8 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const test = new Tree(arr);
 
-console.log(test.levelOrderForEachIter(test.printNode));
+test.preOrderForEach(test.printNode);
+test.inorderForEach(test.printNode);
+test.postOrderForEach(test.printNode);
 
-test.prettyPrint(test.root);
+// test.prettyPrint(test.root);
