@@ -166,6 +166,16 @@ class Tree {
     );
   }
 
+  getDepth(value, root = this.root, h = 0) {
+    if (root === null) return h + 1;
+    if (root.data === value.data) return h;
+
+    return Math.min(
+      this.getDepth(value, root.left, h + 1),
+      this.getDepth(value, root.right, h + 1)
+    );
+  }
+
   height(value) {
     if (!this.find(value)) {
       return null;
@@ -175,6 +185,16 @@ class Tree {
 
     return this.getHeight(node);
   }
+
+  depth(value) {
+    if (!this.find(value)) {
+      return null;
+    }
+
+    const node = this.find(value);
+
+    return this.getDepth(node);
+  }
 }
 
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -182,6 +202,6 @@ const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 const test = new Tree(arr);
 
-console.log(test.height(67));
+console.log(test.depth(3));
 
 test.prettyPrint(test.root);
