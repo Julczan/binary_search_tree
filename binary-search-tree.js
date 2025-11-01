@@ -166,6 +166,15 @@ class Tree {
     );
   }
 
+  getMinHeight(root, h = 0) {
+    if (root === null) return h - 1;
+
+    return Math.min(
+      this.getHeight(root.left, h + 1),
+      this.getHeight(root.right, h + 1)
+    );
+  }
+
   getDepth(value, root = this.root, h = 0) {
     if (root === null) return h + 1;
     if (root.data === value.data) return h;
@@ -195,13 +204,20 @@ class Tree {
 
     return this.getDepth(node);
   }
+
+  isBalanced() {
+    const subtr = this.getHeight(this.root) - this.getMinHeight(this.root);
+
+    if (subtr > 1) return false;
+    return true;
+  }
 }
 
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-// const arr = [1, 2, 3, 4, 5, 6, 7];
+// const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const arr = [1, 2, 3, 4, 5, 6, 7];
 
 const test = new Tree(arr);
 
-console.log(test.depth(3));
+console.log(test.isBalanced());
 
 test.prettyPrint(test.root);
