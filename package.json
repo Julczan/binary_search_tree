@@ -1,0 +1,21 @@
+{
+  "name": "binary_search_tree",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "driver-script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Julczan/binary_search_tree.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Julczan/binary_search_tree/issues"
+  },
+  "homepage": "https://github.com/Julczan/binary_search_tree#readme"
+}
