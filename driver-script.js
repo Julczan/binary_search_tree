@@ -11,8 +11,54 @@ function getRandomNumsArr(number) {
   return arr;
 }
 
-const array = getRandomNumsArr(10);
+function driverScript() {
+  const array = getRandomNumsArr(10);
 
-const test = new Tree(array);
+  const test = new Tree(array);
 
-test.prettyPrint(test.root);
+  console.log("Is the tree balanced:");
+  console.log(test.isBalanced());
+
+  console.log("Level Order:");
+  test.levelOrderForEach(test.printNode);
+
+  console.log("PreOrder:");
+  test.preOrderForEach(test.printNode);
+
+  console.log("PostOrder:");
+  test.postOrderForEach(test.printNode);
+
+  console.log("InOrder:");
+  test.inorderForEach(test.printNode);
+
+  console.log("Inserting numbers over 100");
+
+  test.insert(101);
+  test.insert(120);
+  test.insert(200);
+  test.insert(115);
+  test.insert(398);
+
+  console.log("Is the tree balanced:");
+  console.log(test.isBalanced());
+
+  console.log("Calling the rebalance function");
+
+  test.rebalance();
+  console.log("Is the tree balanced:");
+  console.log(test.isBalanced());
+
+  console.log("Level Order:");
+  test.levelOrderForEach(test.printNode);
+
+  console.log("PreOrder:");
+  test.preOrderForEach(test.printNode);
+
+  console.log("PostOrder:");
+  test.postOrderForEach(test.printNode);
+
+  console.log("InOrder:");
+  test.inorderForEach(test.printNode);
+}
+
+driverScript();
