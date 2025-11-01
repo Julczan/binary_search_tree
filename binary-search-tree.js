@@ -104,11 +104,15 @@ class Tree {
     return root;
   }
 
-  printNode(result) {
-    console.log(result);
+  printNode(node) {
+    console.log(node);
   }
 
-  levelOrderForEachIter(callback, root = this.root) {
+  getTraversedArr(arr) {
+    return arr;
+  }
+
+  levelOrderForEach(callback, root = this.root) {
     if (!callback) throw new Error("Callback is required");
     if (root === null) return;
 
@@ -123,8 +127,7 @@ class Tree {
       if (root.left !== null) queue.push(root.left);
       if (root.right !== null) queue.push(root.right);
     }
-
-    callback(res);
+    return callback(res);
   }
 
   inorderForEach(callback, root = this.root) {
@@ -211,6 +214,12 @@ class Tree {
     if (subtr > 1) return false;
     return true;
   }
+
+  rebalance() {
+    const traversedArr = this.levelOrderForEach(this.getTraversedArr);
+
+    this.root = this.buildTree(traversedArr);
+  }
 }
 
 // const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -218,6 +227,9 @@ const arr = [1, 2, 3, 4, 5, 6, 7];
 
 const test = new Tree(arr);
 
-console.log(test.isBalanced());
+test.insert(8);
+test.insert(9);
+
+test.rebalance();
 
 test.prettyPrint(test.root);
